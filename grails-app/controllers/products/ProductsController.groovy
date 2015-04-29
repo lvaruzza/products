@@ -56,7 +56,18 @@ class ProductsController {
 	
 	def update(int id) {
 		def product=Product.get(id)
+		//product.translation = product.translation ?: new Translation()
+		println "--------------------------------------------------"
+		println params.translation.dump()
+		//bindData(product,params)
+		//bindData(product.translation,params,prefix:"tranlation")
+		
 		product.properties = params
+		product.translation = product.translation ?: new Translation(params.translation)
+		
+		println "--------------------------------------------------"
+		println product.dump()
+		println "--------------------------------------------------"
 		updateOrSave(product,false)
 	}	
 	
@@ -68,7 +79,6 @@ class ProductsController {
 			println "translation: ${product.translation}"
 			product.translation.sku = product.sku
 			def user = getAuthenticatedUser()
-			println user.dump()
 			
 			product.translation.editedBy =user.initials
 			product.editedBy = user.initials

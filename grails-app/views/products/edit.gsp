@@ -107,14 +107,26 @@ td.orig textarea {
 <tr> <td class="field">SKU</td> 
 	 <td class="orig" colspan="2"><g:textField name="sku" value="${product.sku}" /></td></tr>
 
+<sec:ifAnyGranted roles="ROLE_PRICE">
+<tr> <td class="field">Last price update</td> 
+	 <td class="orig" colspan="2"><g:textField name="price_update" value="${product.lastPrice()?.updated_on ?: 'No price registered'}" /></td></tr>
+<tr> <td class="field">Price USD</td> 
+	 <td class="orig" colspan="2"><g:textField name="price_USD" value="${product.lastPrice()?.price_USD ?: 'No price registered'}" /></td></tr>
+<tr> <td class="field">Price BRL (no IPI)</td> 
+	 <td class="orig" colspan="2"><g:textField name="price_BRL_no_IPI" value="${product.lastPrice()?.price_BRL_no_IPI ?: 'No price registered'}" /></td></tr>
+<tr> <td class="field">Price BRL</td> 
+	 <td class="orig" colspan="2"><g:textField name="price_BRL" value="${product.lastPrice()?.price_BRL ?: 'No price registered'}" /></td></tr>
+</sec:ifAnyGranted>
+
+
 <tr> <td class="field">Path</td> 
 	 <td class="orig" colspan="2"><g:textField name="path" value="${product.path}" /></td></tr>
 
 <tr> <td class="field">Edited by</td> 
-	 <td class="orig" colspan="2"><div>${product.translation?.editedBy}</div></td></tr>
+	 <td class="orig" colspan="2"><div>${product.editedBy}</div></td></tr>
 
 <tr> <td class="field">Last Update </td> 
-	 <td class="orig" colspan="2"><div>${product.translation?.lastUpdated}</td></div></tr>
+	 <td class="orig" colspan="2"><div>${product.lastUpdated}</td></div></tr>
 
 <tr>
 	<td class="field">Product Page</td>

@@ -3,6 +3,7 @@ package products
 import org.joda.time.DateTime
 import org.joda.time.Period
 
+
 class ProductTagLib {
 	static namespace = "prod"
 	static TimeUtil timeUtil = new TimeUtil();

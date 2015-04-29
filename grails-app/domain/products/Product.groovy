@@ -3,6 +3,7 @@ package products
 
 import grails.converters.JSON
 
+
 class Product {
 	String sku
 	String name
@@ -16,7 +17,9 @@ class Product {
 	String path
 	Integer version
 	Date lastUpdated
-	static hasOne =[translation:Translation]
+	static hasOne  =[translation:Translation]
+	static hasMany =[prices:Price]
+	
 	
 	static searchable = {
 		except = ["version", "lastUpdated"]
@@ -48,5 +51,13 @@ class Product {
   def dump() {
 	  JSON.use('deep')
 	  return new JSON(this)
+  }
+  
+  def Product() {
+	  translation = new Translation()
+  }
+  
+  def lastPrice() {
+	  prices?.isEmpty() ? null : prices.last()
   }
  }

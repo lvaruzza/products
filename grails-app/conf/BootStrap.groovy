@@ -1,6 +1,6 @@
 import products.Role
 import products.User
-import products.UserRole;
+import products.UserRole
 
 class BootStrap {
 

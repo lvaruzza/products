@@ -44,7 +44,7 @@ environments {
 			driverClassName = "org.postgresql.Driver"
 			//dialect = org.hibernate.dialect.PostgreSQLDialect
 			dbCreate = "update"
-			url = "jdbc:postgresql://localhost/products_dev"
+			url = "jdbc:postgresql://localhost/products"
 			logSql=false
 		}
 		hibernate {
