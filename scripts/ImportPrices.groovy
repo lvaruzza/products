@@ -31,6 +31,7 @@ target(importPrices: "The description of the script goes here!") {
 						if (lst.length >= 13) {
 							def sku = lst[0].trim()
 							def ncm = lst[2].trim()
+							def name = lst[1].trim()
 							def size = lst[8].trim()
 							def usd = lst[9].trim()
 							def brl_no_ipi = lst[10].trim()
@@ -39,6 +40,7 @@ target(importPrices: "The description of the script goes here!") {
 							price.sku = sku
 							price.ncm = ncm
 							price.size = size
+							price.name = name.trim()
 							price.price_USD = (usd == "\$-") ?  null : nf.parse(usd)
 							price.price_BRL = (brl == "R\$ -") ?  null : nfbrl.parse(brl)
 							price.price_BRL_no_IPI = (brl_no_ipi == "R\$ -") ?  null : nfbrl.parse(brl_no_ipi)
