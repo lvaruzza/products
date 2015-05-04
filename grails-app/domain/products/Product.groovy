@@ -46,6 +46,7 @@ class Product {
     sku blank: false
     name blank: false
 	//translation unique: true
+	translation nullable:true
   }
 
   def dump() {
