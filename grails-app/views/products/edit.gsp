@@ -189,8 +189,8 @@ td.orig textarea {
 <g:if test="${ canEdit }">
 <g:actionSubmit value="${ create ? "Save" : "Update"}" />
 </g:if>
-<g:link action="list" params="${[query:session.query,offset:session.offset,max:session.max]}">Back</g:link>
 </g:form>
+
 </div>
 </body>
 </html>

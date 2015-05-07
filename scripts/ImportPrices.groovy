@@ -20,7 +20,7 @@ target(importPrices: "The description of the script goes here!") {
 	def nfbrl=NumberFormat.getNumberInstance(new Locale("pt","BR"));
 	nfbrl.applyPattern("R\$ ###,###.##")
 
-	def inputFile=argsMap.input ?: "price_list.txt"
+	def inputFile=argsMap.input
 	println "Importing prices from '${inputFile}'"
 	def file=new File(inputFile)
 	file.withReader { reader ->
