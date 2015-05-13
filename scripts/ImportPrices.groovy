@@ -64,9 +64,11 @@ target(importPrices: "The description of the script goes here!") {
 								product.translation.name = name
 								product.translation.sku = sku
 								product.translation.lang = "pt_BR"
-								product.translation.editedBy="PRICE"								
+								product.translation.editedBy="PRICE"
+								product.translation.size = size								
 								product.editedBy="PRICE"
-								product.lang="en_US"								
+								product.lang="en_US"
+								println "Creating product ${sku} ${name}"								
 							}
 							product.addToPrices(price)
 							product.save(failOnError:true,flush:true)
