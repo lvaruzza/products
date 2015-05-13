@@ -18,13 +18,23 @@ class Translation {
 	
   static mapping = {
     table "translations"
-	description type: 'text',nullable: true
-	name type: 'text',nullable: true
-	size type: 'text',nullable: true
+	description type: 'text'
+	name type: 'text'
+	size type: 'text'
 	id type: Long
 	
 	contentsAndStorage type: 'text'
   }	
+  
+  static constraints = {
+    sku blank: false
+    name blank: false
+    editedBy blank: false
+    version blank: false
+	description nullable: true
+	size nullable: true
+	contentsAndStorage nullable: true
+  }
   
   static belongsTo = [product:Product]
   
@@ -33,10 +43,4 @@ class Translation {
 	  description index: 'tokenized'
   }*/	
 
-  static constraints = {
-    sku blank: false
-    name blank: false
-    editedBy blank: false
-    version blank: false
-  }
 }

@@ -139,3 +139,6 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 grails.plugin.springsecurity.rememberMe.persistent = true
 grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'products.PersistentLogin'
 
+
+grails.plugin.databasemigration.reports.updateOntart = true
+grails.plugin.databasemigration.reports.changelogFileName = 'changelog.groovy'

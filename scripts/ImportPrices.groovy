@@ -20,7 +20,7 @@ target(importPrices: "The description of the script goes here!") {
 	def nfbrl=NumberFormat.getNumberInstance(new Locale("pt","BR"));
 	nfbrl.applyPattern("R\$ ###,###.##")
 
-	def inputFile=argsMap.input
+	def inputFile=argsMap.input	
 	println "Importing prices from '${inputFile}'"
 	def file=new File(inputFile)
 	file.withReader { reader ->
@@ -57,9 +57,19 @@ target(importPrices: "The description of the script goes here!") {
 							//println("SKU '${sku}'")
 							//println(product as JSON)
 							if (product != null) {
-								product.addToPrices(price)
-								product.save(failOnError:true,flush:true)
+							} else {
+								product = productClass.newInstance();
+								product.sku = sku
+								product.name = "not defined"
+								product.translation.name = name
+								product.translation.sku = sku
+								product.translation.lang = "pt_BR"
+								product.translation.editedBy="PRICE"								
+								product.editedBy="PRICE"
+								product.lang="en_US"								
 							}
+							product.addToPrices(price)
+							product.save(failOnError:true,flush:true)
 						}
 					} catch(Exception e) {
 						status.setRollbackOnly()

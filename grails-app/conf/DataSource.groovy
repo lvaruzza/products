@@ -21,7 +21,7 @@ environments {
 	development {
 		dataSource {
 			pooled = true
-			dbCreate = "update"
+			//dbCreate = "update"
 			url = "jdbc:postgresql://localhost/products_dev"
 			logSql=false
 			formatSql=true
@@ -43,7 +43,7 @@ environments {
 			pooled = true
 			driverClassName = "org.postgresql.Driver"
 			//dialect = org.hibernate.dialect.PostgreSQLDialect
-			dbCreate = "update"
+			//dbCreate = "update"
 			url = "jdbc:postgresql://localhost/products"
 			logSql=false
 		}

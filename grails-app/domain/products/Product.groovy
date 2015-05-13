@@ -47,6 +47,11 @@ class Product {
     name blank: false
 	//translation unique: true
 	translation nullable:true
+	contentsAndStorage nullable:true
+	size nullable:true
+	description nullable:true
+	path nullable:true
+	url nullable:true
   }
 
   def dump() {
