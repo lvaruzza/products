@@ -131,8 +131,8 @@ td.orig textarea {
 <tr>
 	<td class="field">Product Page</td>
 	<td class="orig" colspan="2">
-<g:if test="${ canEdit }">
-	   <g:textArea readonly="${readonly}" name="product.url" value="${product.url}" />
+<g:if test="${canEdit}">
+	   <g:textArea readonly="${readonly}" name="url" value="${product.url}" />
 </g:if>
 <g:else>
 	<a href="${product.url}" target="_blank">${product.url}</a>	

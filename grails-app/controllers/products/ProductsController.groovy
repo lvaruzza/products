@@ -1,5 +1,7 @@
 package products
 
+import grails.converters.*
+
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -118,6 +120,7 @@ class ProductsController {
 			product.translation.editedBy = "SYS"
 			product.translation.lang="en_US"
 			product.translation.sku = product.sku
+			product.lastUpdated = new Date()
 			//product.save(flush:true,failOnError:true);
 		}
 		def canEdit = canEdit()
@@ -128,6 +131,8 @@ class ProductsController {
 	
 	def edit(Integer id) {
 		def product=Product.get(id)
+		println "Edit Params:"
+		println (params as JSON);
 		product.properties = params
 		editOrCreate(product,false);
 	}

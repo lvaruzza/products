@@ -68,6 +68,7 @@ target(importPrices: "The description of the script goes here!") {
 								product.translation.size = size								
 								product.editedBy="PRICE"
 								product.lang="en_US"
+								product.lastUpdated = new Date()
 								println "Creating product ${sku} ${name}"								
 							}
 							product.addToPrices(price)
