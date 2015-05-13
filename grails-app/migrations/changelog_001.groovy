@@ -32,7 +32,9 @@ databaseChangeLog = {
 		addNotNullConstraint(columnDataType: "varchar(255)", columnName: "lang", tableName: "products")
 	}
 
+
 	changeSet(author: "varuzza (generated)", id: "1431522458818-9") {
+		sql("update products set last_updated=now() where last_updated is null")
 		modifyDataType(columnName: "last_updated", newDataType: "timestamp", tableName: "products")
 	}
 
