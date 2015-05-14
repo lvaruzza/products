@@ -10,6 +10,10 @@ class Price {
 	BigDecimal price_BRL
 	Date updated_on
 	
+	static mapping = {
+		sku index: 'price_sku'
+		updated_on index: 'price_updated_on',type:'date'
+	}
     static constraints = {
 		sku blank: false
 		name nullable:true,blank:true
