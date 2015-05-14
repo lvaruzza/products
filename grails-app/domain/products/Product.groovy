@@ -64,6 +64,7 @@ class Product {
   }
   
   def lastPrice() {
-	  prices?.isEmpty() ? null : prices.last()
+	  if (prices == null ) return null
+	  else prices?.isEmpty() ? null : prices.last()
   }
  }
