@@ -61,7 +61,7 @@ target(importPrices: "The description of the script goes here!") {
 								product = productClass.newInstance();
 								product.sku = sku
 								product.name = "not defined"
-								product.translation.name = name
+								product.translation.name = (name != null || name != "") ? name : "not defined" 
 								product.translation.sku = sku
 								product.translation.lang = "pt_BR"
 								product.translation.editedBy="PRICE"
