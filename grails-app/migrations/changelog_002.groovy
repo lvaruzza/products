@@ -24,7 +24,7 @@ from price
 order by sku,updated_on  desc;""")
 	}
 
-	changeSet(author: "varuzza", id: "1431559468404-6") {
+	changeSet(author: "varuzza", id: "1431559468404-10") {
 	       sql("""
 drop view last_price;
 create view last_price as
@@ -34,19 +34,19 @@ order by sku,updated_on  desc;""")
 	}
 
 
-	changeSet(author: "varuzza", id: "1431559468404-7") {
+	changeSet(author: "varuzza", id: "1431559468404-11") {
 	       sql("""
 Create view proforma_view as
  select lp.*,
- 	j.product_prices_id,
+ 	j.product_prices_id  as product_id,
 	t.name,
-	t.description as product_id
+	t.description
 from last_price as lp
 left join products_price as j  on (lp.id=j.price_id)
 left join translations as t on (t.product_id=j.product_prices_id);
 """)
      }
-     changeSet(author: "varuzza", id: "1431559468404-8") {
+     changeSet(author: "varuzza", id: "1431559468404-12") {
        sql("grant select on proforma_view to odbc")
        
      }
