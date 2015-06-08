@@ -26,7 +26,7 @@ order by sku,updated_on  desc;""")
 
 	changeSet(author: "varuzza", id: "1431559468404-10") {
 	       sql("""
-drop view IF EXISTS last_price;
+drop view IF EXISTS last_price cascade;
 create view last_price as
 select distinct on (sku) id,sku,price_USD,price_BRL,price_BRL_no_IPI,updated_on
 from price
