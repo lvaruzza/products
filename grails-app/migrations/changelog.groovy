@@ -40,4 +40,8 @@ databaseChangeLog = {
 	include file: 'changelog_001.groovy'
 
 	include file: 'changelog_002.groovy'
+
+	include file: 'changelog_003.groovy'
+
+	include file: 'add-deprecated-field.groovy'
 }

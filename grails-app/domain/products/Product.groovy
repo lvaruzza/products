@@ -17,6 +17,8 @@ class Product {
 	String path
 	Integer version
 	Date lastUpdated
+	boolean deprecated = false
+	
 	static hasOne  =[translation:Translation]
 	static hasMany =[prices:Price]
 	
@@ -39,6 +41,7 @@ class Product {
 	id type: Long
 	lastUpdated type:'timestamp'
 	translation cascade:"all"
+	deprecated defaultValue:false
   }	
   
   
@@ -52,6 +55,7 @@ class Product {
 	description nullable:true
 	path nullable:true
 	url nullable:true
+	deprecated nullable:false
   }
 
   def dump() {
