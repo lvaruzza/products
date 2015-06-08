@@ -125,14 +125,13 @@ class ProductsController {
 		}
 		def canEdit = canEdit()
 		def readOnly = canEdit ? "false" : "readonly"
-		println "CE ${canEdit} RO ${readOnly}"
 		[product: product,readonly: readOnly, canEdit: canEdit,create:create]
 	}
 	
 	def edit(Integer id) {
 		def product=Product.get(id)
-		println "Edit Params:"
-		println (params as JSON);
+		//println "Edit Params:"
+		//println (params as JSON);
 		product.properties = params
 		editOrCreate(product,false);
 	}

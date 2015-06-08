@@ -103,9 +103,18 @@ td.orig textarea {
 
 <g:form action="${ create ? 'save' : 'update'}" method="POST" name="editProduct">
 
+<g:if test="${product.deprecated}">
+<h1 class="deprecated_message">
+DEPRECATED
+</h1>
+</g:if>
+
 <table id="uneditableFields" class="fields">
-<tr> <td class="field">SKU</td> 
-	 <td class="orig" colspan="2"><g:textField name="sku" value="${product.sku}" /></td></tr>
+<tr class="${product.deprecated ? 'deprecated_product' : 'valid_product' }"> <td class="field">SKU</td> 
+	 <td class="orig" colspan="2">
+	   <g:textField name="sku" value="${product.sku}" />
+	 </td>
+</tr>
 
 <sec:ifAnyGranted roles="ROLE_PRICE">
 <tr> <td class="field">Last price update</td> 
@@ -185,6 +194,12 @@ td.orig textarea {
 	 </td></tr>
 
 </table>
+
+<g:if test="${product.deprecated}">
+<h1 class="deprecated_message">
+DEPRECATED
+</h1>
+</g:if>
 
 <g:if test="${ canEdit }">
 <g:actionSubmit value="${ create ? "Save" : "Update"}" />

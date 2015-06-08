@@ -1,3 +1,18 @@
+.deprecated_message {
+	color:red;
+}
+
+.deprecated_product .orig {
+	text-decoration: line-through;
+//	background-color: LightGray;
+}
+
+.deprecated_product .translation {
+	text-decoration: line-through;
+//	background-color: LightGray;
+}
+
+
 #loginBox {
 //	border: 1px solid black;
 	margin-bottom: 3ex;

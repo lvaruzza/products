@@ -25,6 +25,9 @@
 	<td class="orig">${product.name}</td>
 	<td class="translation">${product.translation?.name}</td>
 	<td class="update">
+		<g:if test="${product.deprecated}">
+			<span class="deprecated_message">DEPRECATED</span>
+		</g:if>
 		<prod:updated editedBy="${product.editedBy}"  
 					  updated="${product.lastUpdated}" /></td>
 	</tr>

@@ -40,7 +40,7 @@ target(importPrices: "The description of the script goes here!") {
 							def usd = lst[9].trim()
 							def brl_no_ipi = lst[10].trim()
 							def brl = lst[12].trim()
-
+							def legenda = lst[3].trim()
 
 							def price = priceClass.newInstance()
 							price.sku = sku
@@ -58,6 +58,7 @@ target(importPrices: "The description of the script goes here!") {
 							//println(product as JSON)
 							if (product != null) {
 							} else {
+								println "Creating product ${sku} ${name}"								
 								product = productClass.newInstance();
 								product.sku = sku
 								product.name = "not defined"
@@ -69,9 +70,12 @@ target(importPrices: "The description of the script goes here!") {
 								product.editedBy="PRICE"
 								product.lang="en_US"
 								product.lastUpdated = new Date()
-								println "Creating product ${sku} ${name}"								
 							}
 							product.addToPrices(price)
+							if (legenda=="D") {
+								println "Product ${sku} deprecated"
+								product.deprecated = true
+							}
 							product.save(failOnError:true,flush:true)
 						}
 					} catch(Exception e) {
