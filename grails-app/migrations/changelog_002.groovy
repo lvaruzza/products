@@ -18,7 +18,7 @@ databaseChangeLog = {
 
 	changeSet(author: "varuzza", id: "1431559468404-4") {
 	       sql("""
-create view last_price a
+create view last_price as
 select distinct on (sku) sku,price_USD,price_BRL,price_BRL_no_IPI,updated_on
 from price
 order by sku,updated_on  desc;""")
