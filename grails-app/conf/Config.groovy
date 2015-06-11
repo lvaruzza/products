@@ -134,6 +134,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/user/**':                       ['ROLE_ADMIN'],
     '/role/**':                       ['ROLE_ADMIN'],
     '/persistentLogin/**':            ['ROLE_ADMIN'],
+    '/static/price/**':            ['ROLE_PRICE'],
 ]
 
 grails.plugin.springsecurity.rememberMe.persistent = true
