@@ -58,6 +58,12 @@
 		</g:form>
 	</div>
 
+	<sec:ifAllGranted roles="ROLE_PRICE">
+	<h1>
+		<g:link controller="quote">Create a Quote</g:link>
+	</h1>	
+	</sec:ifAllGranted>
+
 	<g:layoutBody />
 	<g:javascript library="application" />
 	<r:layoutResources />

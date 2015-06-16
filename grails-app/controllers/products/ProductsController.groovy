@@ -1,6 +1,7 @@
 package products
 
 import grails.converters.*
+import static grails.async.Promises.*
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
@@ -140,5 +141,12 @@ class ProductsController {
 		def product = new Product();
 		def p = editOrCreate(product,true);
 		render(view:"edit",model:p)
+	}
+	
+	def reindex() {
+		tasks {
+			Product.reindex();
+			render "ok"
+		}
 	}
 }
