@@ -99,7 +99,7 @@ class ImportPricesService {
 				reader.eachLine { line,lineno ->
 					Price.withTransaction { status -> createPrice(line) }
 					if (count%100==0) {
-							println line
+						println line
 					}
 					count++
 				} // Each Line

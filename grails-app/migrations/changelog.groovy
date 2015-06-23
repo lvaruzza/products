@@ -44,4 +44,6 @@ databaseChangeLog = {
 	include file: 'changelog_003.groovy'
 
 	include file: 'add-deprecated-field.groovy'
+
+	include file: 'create_messages.groovy'
 }

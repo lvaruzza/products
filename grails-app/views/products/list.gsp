@@ -10,6 +10,13 @@
 </div>
 </sec:ifAnyGranted>
 
+<sec:ifAllGranted roles="ROLE_PRICE">
+<div>
+	<g:link controller="quote">Create a Quote</g:link>
+</div>	
+</sec:ifAllGranted>
+
+
 <div  id="productsListDiv">
 <g:if test="${results.size() > 0}">
 <table  id="productsList">
