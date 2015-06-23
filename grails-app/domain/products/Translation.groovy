@@ -28,7 +28,7 @@ class Translation {
   
   static constraints = {
     sku blank: false
-    name blank: false
+    name blank: true
     editedBy blank: false
     version blank: false
 	description nullable: true
