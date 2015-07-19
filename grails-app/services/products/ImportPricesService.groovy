@@ -1,13 +1,10 @@
 package products
 
 import grails.converters.*
-import org.hibernate.FlushMode
 
 import java.text.*
 
-import org.codehaus.groovy.grails.web.servlet.mvc.GrailsHttpSession
-//import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
-//import org.springframework.web.context.request.RequestContextHolder
+import javax.servlet.http.HttpSession
 
 class ImportPricesService {
 	def   sessionFactory
@@ -16,8 +13,9 @@ class ImportPricesService {
 
 	def nf=NumberFormat.getNumberInstance(new Locale("pt","BR"));
 	def nfbrl=NumberFormat.getNumberInstance(new Locale("pt","BR"));
+	def lineno;
 
-	def createPrice(line) {
+	def createPrice(line,session) {
 		def lst = line.split("\t")
 		try {
 			if (lst.length >= 13) {
@@ -41,8 +39,10 @@ class ImportPricesService {
 				//price.save(failOnError: true)
 
 				def product = Product.findBySku(sku,[lock:true])
-				println("SKU '${sku}'")
+				//println("SKU '${sku}'")
 				//println(product as JSON)
+				session['import_sku']=sku
+				session['import_lineno']=lineno
 				if (product == null) {
 					println "Creating product ${sku} ${name}"
 					product = new Product();
@@ -82,7 +82,7 @@ class ImportPricesService {
 		}
 	}
 
-	def process(File file) {
+	def process(File file,HttpSession session) {
 		nf.applyPattern("\$###,###.##")
 
 		nfbrl.applyPattern("R\$ ###,###.##")
@@ -90,18 +90,18 @@ class ImportPricesService {
 		Price.withNewSession { hibernateSession->
 			//sessionFactory.currentSession.clear()
 			//Message.executeUpdate("delete Message where source='IMPORT_PRICE'")
-			def count=0
+			lineno=0
 			file.withReader { reader ->
 				def header = reader.readLine().split("\t")
 				header.eachWithIndex { x,i ->
 					println "${i}: $x"
 				}
 				reader.eachLine { line,lineno ->
-					Price.withTransaction { status -> createPrice(line) }
-					if (count%100==0) {
+					Price.withTransaction { status -> createPrice(line,session) }
+					if (lineno%100==0) {
 						println line
 					}
-					count++
+					lineno++
 				} // Each Line
 
 			}

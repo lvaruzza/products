@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
 <title><g:layoutTitle default="Life Tech Products Catalogue" /></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="shortcut icon"
@@ -23,6 +24,7 @@
 <link rel="stylesheet"
 	href="${resource(dir: 'css', file: 'default.css')}" type="text/css">
 
+
 <g:layoutHead />
 <r:layoutResources />
 </head>
@@ -32,11 +34,14 @@
 		<div style="margin-top: 20px">
 			<div style="float: right;">
 				<sec:ifLoggedIn>
-					<div id="login">User: <sec:username /></div>
+					<div id="login">
+						User:
+						<sec:username />
+					</div>
 					<div>
-					<sec:ifAllGranted roles="ROLE_ADMIN">
-						<g:link controller="user">Admin Users</g:link>
-					</sec:ifAllGranted>
+						<sec:ifAllGranted roles="ROLE_ADMIN">
+							<g:link controller="user">Admin Users</g:link>
+						</sec:ifAllGranted>
 					</div>
 					<form name="submitForm" method="POST"
 						action="${createLink(controller: 'logout')}">

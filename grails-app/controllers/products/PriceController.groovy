@@ -23,15 +23,19 @@ class PriceController {
 			tmp.deleteOnExit()
 			println "Temp file ${tmp.absolutePath}"
 			uploadedFile.transferTo(tmp)
-			def t=task{
-				Product.withNewSession {
-					importPricesService.process(tmp)
-				}
-			}
+			importPricesService.process(tmp,session)
+			//def t=task{
+			//Product.withNewSession {
+			//}
+			//}
 			println t.getClass()
 			render view:"index"
 		} else {
 			render view:"index"
 		}
+	}
+	
+	def progress() {
+		render session['import_sku']
 	}
 }
