@@ -11,21 +11,6 @@
 		</g:form>
 	</div>
 
-
-	<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_EDIT">
-		<div id="productsTools">
-			<g:link action="create">Create New Product</g:link>
-		</div>
-	</sec:ifAnyGranted>
-
-	<sec:ifAllGranted roles="ROLE_PRICE">
-		<div>
-			<g:link controller="quote">Create a Quote</g:link>
-		</div>
-	</sec:ifAllGranted>
-
-
-
 	<div id="productsListDiv">
 		<g:if test="${results.size() > 0}">
 			<table id="productsList">

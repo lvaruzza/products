@@ -61,9 +61,6 @@
 
 
 					<sec:ifLoggedIn>
-						<sec:ifAllGranted roles="ROLE_ADMIN">
-							<g:link class="mdl-navigation__link" controller="user">Admin Users</g:link>
-						</sec:ifAllGranted>
 						<span id="login"> User: <sec:username />
 						</span>
 						<g:link class="mdl-navigation__link" controller='login'
@@ -72,8 +69,29 @@
 
 
 				</nav>
+
 			</div>
 		</header>
+		<div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Menu</span>
+			<nav class="mdl-navigation">
+				<sec:ifAllGranted roles="ROLE_ADMIN">
+					<g:link class="mdl-navigation__link" controller="user">Admin Users</g:link>
+				</sec:ifAllGranted>
+
+
+				<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_EDIT">
+					<g:link class="mdl-navigation__link" action="create">Create New Product</g:link>
+				</sec:ifAnyGranted>
+
+				<sec:ifAllGranted roles="ROLE_PRICE">
+					<g:link class="mdl-navigation__link" controller="quote">Create a Quote</g:link>
+
+
+				</sec:ifAllGranted>
+			</nav>
+		</div>
+
 		<main class="mdl-layout__content"style:"margin-top:4ex; margin-left:5em">
 		<div class="page-content">
 			<g:layoutBody />

@@ -3,13 +3,11 @@
 }
 
 .deprecated_product .orig {
-	text-decoration: line-through;
-//	background-color: LightGray;
+	background-color: #FFE0B2;
 }
 
 .deprecated_product .translation {
-	text-decoration: line-through;
-//	background-color: LightGray;
+	background-color: #FFE0B2;
 }
 
 
@@ -48,12 +46,12 @@
 }
 
 td.orig {
-	background-color: #FAEBD7;
+	background-color: #FFCC80;
 	width: 44%;
 }
 
 td.translation {
-	background-color: #F0F8FF;
+	background-color: #FFCC80;
 	width: 44%;
 }
 
