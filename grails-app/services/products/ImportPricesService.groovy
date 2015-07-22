@@ -138,7 +138,7 @@ class ImportPricesService {
 				}
 				lineno++
 			} // Each Line
-
+			Product.reindex();
 		}
 		println "\nfinished"
 		//}

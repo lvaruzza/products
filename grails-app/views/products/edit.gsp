@@ -37,11 +37,6 @@ td.edit {
 	background-color: #F0F8FF;
 }
 
-body {
-	width:94%;
-	padding-left:3%;
-	padding-top:3ex;
-}
 
 #uneditableFields {
 	margin-bottom: 5ex;

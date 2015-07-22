@@ -25,47 +25,61 @@
 	href="${resource(dir: 'css', file: 'default.css')}" type="text/css">
 
 
+<g:javascript library="jquery" plugin="jquery" />
+
+<link rel="stylesheet"
+	href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.deep_orange-red.min.css" />
+
+<script
+	src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
+	type="text/css">
+
+
+<style>
+</style>
+
 <g:layoutHead />
 <r:layoutResources />
 </head>
 <body>
 
-	<div id="loginBox" class="loginBox">
-		<div style="margin-top: 20px">
-			<div style="float: right;">
-				<sec:ifLoggedIn>
-					<div id="login">
-						User:
-						<sec:username />
-					</div>
-					<div>
+	<div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout-icon"></div>
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Orange</span>
+				<div class="mdl-layout-spacer"></div>
+				<nav class="mdl-navigation">
+					<sec:ifNotLoggedIn>
+						<g:link class="mdl-navigation__link" controller='login'
+							action='auth'>Login</g:link>
+					</sec:ifNotLoggedIn>
+
+
+					<sec:ifLoggedIn>
 						<sec:ifAllGranted roles="ROLE_ADMIN">
-							<g:link controller="user">Admin Users</g:link>
+							<g:link class="mdl-navigation__link" controller="user">Admin Users</g:link>
 						</sec:ifAllGranted>
-					</div>
-					<form name="submitForm" method="POST"
-						action="${createLink(controller: 'logout')}">
-						<input type="hidden" name="" value=""> <a
-							HREF="javascript:document.submitForm.submit()">Logout</a>
-					</form>
-				</sec:ifLoggedIn>
-				<sec:ifNotLoggedIn>
-					<g:link controller='login' action='auth'>Login</g:link>
-				</sec:ifNotLoggedIn>
+						<span id="login"> User: <sec:username />
+						</span>
+							<g:link class="mdl-navigation__link" controller='login'
+							action='logout'>Logout</g:link>					
+					</sec:ifLoggedIn>
 
+
+				</nav>
 			</div>
-		</div>
-	</div>
-	<div id="searchbox">
-		<g:form action="list" name="search" method="GET">
-		Search: <g:textField name="query" value="${query}" />
-			<g:link action="list" params="${[query:""]}">Clear</g:link>
-		</g:form>
-	</div>
+		</header>
+		<main class="mdl-layout__content"style:"margin-top:4ex; margin-left:5em">
 
-	<g:layoutBody />
-	<g:javascript library="application" />
-	<r:layoutResources />
+		<g:layoutBody /> <g:javascript library="application" /> <r:layoutResources />
+
+		</main>
+	</div>
 </body>
 
 </html>
