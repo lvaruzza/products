@@ -10,8 +10,7 @@ class PriceController {
 	}
 
 	def upload() {
-		def uploadedFile = request.getFile('price_list')
-
+		def uploadedFile = request.getFile('file')
 		if(!uploadedFile.empty){
 			println "Class: ${uploadedFile.class}"
 			println "Name: ${uploadedFile.name}"
@@ -23,14 +22,11 @@ class PriceController {
 			tmp.deleteOnExit()
 			println "Temp file ${tmp.absolutePath}"
 			uploadedFile.transferTo(tmp)
-			importPricesService.process(tmp,session)
-			//def t=task{
-			//Product.withNewSession {
-			//}
-			//}
-			println t.getClass()
+			importPricesService.process(params.type,tmp,session)
+			flash.message="Upload finished"	
 			render view:"index"
 		} else {
+			flash.message="Empty File"
 			render view:"index"
 		}
 	}

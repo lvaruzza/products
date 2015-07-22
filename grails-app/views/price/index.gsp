@@ -18,86 +18,99 @@
 
 </head>
 
-<script lang="javascript">
-function uploadFiles(event)
-{
-    event.stopPropagation(); // Stop stuff happening
-    event.preventDefault(); // Totally stop stuff happening
-
-	$('uploadFormDiv').hide()
-	
-    // START A LOADING SPINNER HERE
-
-    // Create a formdata object and add the files
-    var data = new FormData();
-    $.each(files, function(key, value)
-    {
-        data.append(key, value);
-    });
-
-    $.ajax({
-        url: '${createLink(action: 'upload',controller:'price')}',
-        type: 'POST',
-        data: data,
-        cache: false,
-        dataType: 'json',
-        processData: false, // Don't process the files
-        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-        success: function(data, textStatus, jqXHR)
-        {
-            if(typeof data.error === 'undefined')
-            {
-                // Success so call function to process the form
-                submitForm(event, data);
-            }
-            else
-            {
-                // Handle errors here
-                console.log('ERRORS: ' + data.error);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            // Handle errors here
-            console.log('ERRORS: ' + textStatus);
-            // STOP LOADING SPINNER
-        }
-    });
-}
-</script>
 
 <body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--overlay-drawer-button">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout-icon"></div>
+			<div class="mdl-layout__header-row">
+				<span class="mdl-layout-title">Price Uploader</span>
+				<div class="mdl-layout-spacer"></div>
+				<!--       <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="#">Nav link 1</a>
+        <a class="mdl-navigation__link" href="#">Nav link 2</a>
+        <a class="mdl-navigation__link" href="#">Nav link 3</a>
+      </nav>
+  -->
+			</div>
+		</header>
+		<main class="mdl-layout__content"style:"margin-top:4ex; margin-left:5em">
 
+		<g:if test="${flash.message}">
+			<div class="message" style="display: block">
+				${flash.message}
+			</div>
+		</g:if>
 
-	<h1>Price List Upload</h1>
+		<div id="formHolder">
 
-	<div id="upload">
-		<div id="progress">Choose the price list file:</div>
-		<p></p>
-		<div id="uploadFormDiv">
 			<g:uploadForm action="upload" name="uploadForm">
-				<input type="file" name="price_list" />
-				<input type="submit" />
+
+
+
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--1-col">List Type</div>
+					<div class="mdl-cell mdl-cell--4-col">
+						<input type="radio" name="type" value="general" checked />General
+						List <input type="radio" name="type" value="platics" />Platics
+						LPG 
+<!-- 						
+						<input type="radio" name="type" value="nanodrop" />Nanodrop
+ -->						
+					</div>
+				</div>
+
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--1-col">File</div>
+					<div class="mdl-cell mdl-cell--2-col">
+						<input type="file" name="file" />
+					</div>
+
+				</div>
+
+				<div class="mdl-grid">
+					<div class="mdl-cell mdl-cell--1-col"></div>
+					<div class="mdl-cell mdl-cell--2-col">
+						<button id="submit" onclick="submitClick()"
+							class="mdl-button mdl-js-button mdl-button--primary">
+							Submit</button>
+					</div>
+				</div>
 			</g:uploadForm>
 		</div>
+		<div id="spinnerHolder"
+			style="margin: auto; margin-top: 5ex; width: 60%;">
+			<div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner"
+				id="form_spinner"></div>
+			<span style="vertical-align: text-center; margin-left: 2em">
+				Loading Prices. </span> <span id="curSKU"></span>
+		</div>
+		</main>
 	</div>
 
-	<script lang="javascript">
+	<script>
+		$(function() {
+			$('#spinnerHolder').hide();
+		})
 
-function updateProgress() {
-	 $.ajax({
-	        url: "${createLink(action: 'progress',controller:'price')}"
-	    }).then(function(data) {
-	        $('#progress').text(data);
-	    });  
-}
-
-$( document ).ready(function() {
-	console.log("ready!")
-	$("#uploadform").ajaxForm();	
-	setInterval(updateProgress, 1000); // 5 * 1000 miliseconds
-});
-</script>
+		function submitClick() {
+			console.log("submit");
+			console.log($('#form_spinner').attr('class'));
+			$('#formHolder').hide();
+			$('#spinnerHolder').show();
+			$('#form_spinner').addClass('is-active');
+			console.log($('#form_spinner').attr('class'));
+			$('#uploadForm').submit();
+			setInterval(function() {
+				$.ajax({
+					url : '${createLink(action:"progress")}',
+					success : function(result) {
+						$("#curSKU").text(" SKU: " + result);
+					}
+				});
+			}, 1000);
+		}
+	</script>
 
 </body>
 
