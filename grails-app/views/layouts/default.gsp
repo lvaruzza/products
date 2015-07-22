@@ -66,8 +66,8 @@
 						</sec:ifAllGranted>
 						<span id="login"> User: <sec:username />
 						</span>
-							<g:link class="mdl-navigation__link" controller='login'
-							action='logout'>Logout</g:link>					
+						<g:link class="mdl-navigation__link" controller='login'
+							action='logout'>Logout</g:link>
 					</sec:ifLoggedIn>
 
 
@@ -75,11 +75,14 @@
 			</div>
 		</header>
 		<main class="mdl-layout__content"style:"margin-top:4ex; margin-left:5em">
-
-		<g:layoutBody /> <g:javascript library="application" /> <r:layoutResources />
-
+		<div class="page-content">
+			<g:layoutBody />
+		</div>
 		</main>
 	</div>
+	<g:javascript library="application" />
+	<r:layoutResources />
+
 </body>
 
 </html>
