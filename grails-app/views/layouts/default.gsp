@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -42,6 +41,16 @@
 <style>
 </style>
 
+<script>
+function logout() {
+	link="${createLink(controller:'login',action:'logout')}"
+	console.log(link)
+	$.post(link,null,function() {
+		console.log("loged out");
+	})
+}
+</script>
+
 <g:layoutHead />
 <r:layoutResources />
 </head>
@@ -61,15 +70,10 @@
 
 
 					<sec:ifLoggedIn>
-						<span id="login"> User: <sec:username />
-						</span>
-						<g:link class="mdl-navigation__link" controller='login'
-							action='logout'>Logout</g:link>
+						<span id="login">User: <sec:username /></span>
+						<a href="#" class="mdl-navigation__link" onclick="logout()">Logout</a>
 					</sec:ifLoggedIn>
-
-
 				</nav>
-
 			</div>
 		</header>
 		<div class="mdl-layout__drawer">
