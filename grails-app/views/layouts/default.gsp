@@ -76,6 +76,7 @@ function logout() {
 				</nav>
 			</div>
 		</header>
+		<sec:ifLoggedIn>
 		<div class="mdl-layout__drawer">
 			<span class="mdl-layout-title">Menu</span>
 			<nav class="mdl-navigation">
@@ -95,6 +96,7 @@ function logout() {
 				</sec:ifAllGranted>
 			</nav>
 		</div>
+	</sec:ifLoggedIn>
 
 		<main class="mdl-layout__content"style:"margin-top:4ex; margin-left:5em">
 		<div class="page-content">
