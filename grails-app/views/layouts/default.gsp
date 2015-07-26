@@ -43,11 +43,11 @@
 
 <script>
 function logout() {
-	link="${createLink(controller:'login',action:'logout')}"
-	console.log(link)
-	$.post(link,null,function() {
-		console.log("loged out");
-	})
+  link="${createLink(controller:'logout')}"
+  $.post(link,null,function() {
+    console.log("loged out");
+    window.location.reload()
+  })
 }
 </script>
 
