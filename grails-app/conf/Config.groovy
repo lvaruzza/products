@@ -102,11 +102,19 @@ log4j.main = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
-	info 'org.springframework.security'
-	info 'grails.plugin.springsecurity'
+	appenders {
+		file name:'file', file:'/var/log/orange/orange.log'
+	}
+	root {
+		info 'file'
+	}
+	error 'org.springframework.security'
+	error 'grails.plugin.springsecurity'
 	
-		
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
+	debug 'org.hibernate.SQL'
+	//trace 'org.hibernate.type'
+	
+    info  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
@@ -134,8 +142,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/user/**':                       ['ROLE_ADMIN'],
     '/role/**':                       ['ROLE_ADMIN'],
     '/persistentLogin/**':            ['ROLE_ADMIN'],
-    '/static/price/**':            ['ROLE_PRICE'],
-    '/price/**':            ['ROLE_PRICE'],
+    '/static/price/**':            ['ROLE_QUOTE','ROLE_PRICE'],
+    '/price/**':            ['ROLE_QUOTE','ROLE_PRICE'],
 ]
 
 grails.plugin.springsecurity.rememberMe.persistent = true

@@ -90,9 +90,11 @@ function logout() {
 				</sec:ifAnyGranted>
 
 				<sec:ifAllGranted roles="ROLE_PRICE">
+					<g:link class="mdl-navigation__link" controller="price">Price List</g:link>
+				</sec:ifAllGranted>
+
+				<sec:ifAllGranted roles="ROLE_QUOTE">
 					<g:link class="mdl-navigation__link" controller="quote">Create a Quote</g:link>
-
-
 				</sec:ifAllGranted>
 			</nav>
 		</div>

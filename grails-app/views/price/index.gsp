@@ -67,10 +67,10 @@
 				$.ajax({
 					url : '${createLink(action:"progress")}',
 					success : function(result) {
-						$("#curSKU").text(" SKU: " + result);
+						$("#curSKU").text(" SKU: " + result[0] + " (line " + result[1] + ")");
 					}
 				});
-			}, 1000);
+			}, 5000);
 		}
 	</script>
 

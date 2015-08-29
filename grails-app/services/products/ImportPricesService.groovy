@@ -4,18 +4,23 @@ import grails.converters.*
 
 import java.text.*
 
-import javax.servlet.http.HttpSession
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
+import org.hibernate.FlushMode
+import org.hibernate.SessionFactory
 
 class ImportPricesService {
-	def   sessionFactory
-	//GrailsWebRequest request = RequestContextHolder.currentRequestAttributes()
-	//GrailsHttpSession session = request.session
+	static transactional = false
+	static scope = "singleton"
+
+	def getSession() {
+		def s=GrailsWebRequest.lookup().currentRequest.getSession()
+		return s
+	}
 
 	def nf=NumberFormat.getNumberInstance(new Locale("pt","BR"));
 	def nfbrl=NumberFormat.getNumberInstance(new Locale("pt","BR"));
-	def lineno;
 
-	def createPrice(session,sku,ncm,name,size,usd,brl_no_ipi,brl) {
+	def createPrice(sku,ncm,name,size,usd,brl_no_ipi,brl,legenda,lineno) {
 		try {
 			def price = new Price();
 			price.sku = sku
@@ -31,8 +36,10 @@ class ImportPricesService {
 			def product = Product.findBySku(sku,[lock:true])
 			//println("SKU '${sku}'")
 			//println(product as JSON)
-			session['import_sku']=sku
-			session['import_lineno']=lineno
+			def s=getSession()
+			s.putValue('import_sku',sku)
+			s.putValue('import_lineno',lineno)
+
 			if (product == null) {
 				println "Creating product ${sku} ${name}"
 				product = new Product();
@@ -46,8 +53,9 @@ class ImportPricesService {
 				product.editedBy="PRICE"
 				product.lang="en_US"
 				product.lastUpdated = new Date()
-				product.save()
+				product.save(failOnError:true,flush:true	)
 			}
+			price.save(failOnError:true,flush:true)
 			product.addToPrices(price)
 			if (legenda=="D") {
 				if (!product.deprecated) {
@@ -70,7 +78,7 @@ class ImportPricesService {
 		}
 
 	}
-	def insertGeneral(line,session) {
+	def insertGeneral(line,lineno) {
 		def lst = line.split("\t")
 		if (lst.length >= 13) {
 			def sku = lst[0].trim()
@@ -81,13 +89,13 @@ class ImportPricesService {
 			def brl_no_ipi = lst[10].trim()
 			def brl = lst[12].trim()
 			def legenda = lst[3].trim()
-			createPrice(session,sku,ncm,name,size,usd,brl_no_ipi,brl)
+			createPrice(sku,ncm,name,size,usd,brl_no_ipi,brl,legenda,lineno)
 		} else {
 			println "Skipping line: '$line'"
 		}
 	}
 
-	def insertPlastic(line,session) {
+	def insertPlastic(line,lineno) {
 		def lst = line.split("\t")
 		if (lst.length >= 13) {
 			def sku = lst[0].trim()
@@ -98,49 +106,56 @@ class ImportPricesService {
 			def brl_no_ipi = null
 			def brl = lst[6].trim()
 			def legenda = ""
-			createPrice(session,sku,ncm,name,size,usd,brl_no_ipi,brl)
+			createPrice(sku,ncm,name,size,usd,brl_no_ipi,brl,legenda,lineno)
 		} else {
 			println "Skipping line: '$line'"
 		}
 	}
 
-	def insertNanodrop(String line,HttpSession session) {
+	def insertNanodrop(String line) {
 	}
 
-	def process(String type,File file,HttpSession session) {
+	def process(String type,File file) {
+		println("Process1 Session ${getSession()}")
 		nf.applyPattern("\$###,###.##")
 		nfbrl.applyPattern("R\$ ###,###.##")
 
 		println "Processing '${type}': $file"
 		switch(type) {
 			case "general":
-				process(file,session,this.&insertGeneral)
+				process(file,this.&insertGeneral)
 				break;
 			case "plastics":
-				process(file,session,this.&insertPlastics)
+				process(file,this.&insertPlastics)
 				break;
 			case "nanodrop":
-				process(file,session,this.&insertNanodrop)
+				process(file,this.&insertNanodrop)
 				break;
 		}
 	}
-	def process(File file,HttpSession session,inserter) {
-		lineno=0
-		file.withReader { reader ->
-			def header = reader.readLine().split("\t")
-			header.eachWithIndex { x,i ->
-				println "${i}: $x"
-			}
-			reader.eachLine { line,lineno ->
-				Price.withTransaction { status -> createPrice(line,session) }
-				if (lineno%100==0) {
-					println line
+	def process(File file,inserter) {
+		Price.withSession { session ->
+			session.setFlushMode(FlushMode.COMMIT)
+			file.withReader { reader ->
+				def header = reader.readLine().split("\t")
+				header.eachWithIndex { x,i ->
+					println "${i}: $x"
 				}
-				lineno++
-			} // Each Line
-			Product.reindex();
+				reader.eachLine { line,lineno ->
+					Price.withTransaction { status ->
+						inserter(line,lineno)
+					}
+					if (lineno%100==0) {
+						println "Flushing..."
+						session.flush()
+						println line
+					}
+				} // Each Line
+				session.clear()
+				println "Reindexing..."
+				Product.reindex()
+			}
+			println "\nfinished"
 		}
-		println "\nfinished"
-		//}
 	}
 }

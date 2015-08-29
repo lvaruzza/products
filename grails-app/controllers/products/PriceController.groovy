@@ -1,6 +1,9 @@
 package products
 
 import static grails.async.Promises.*
+import grails.converters.JSON
+
+import javax.servlet.http.HttpSession
 
 class PriceController {
 	def importPricesService
@@ -22,16 +25,18 @@ class PriceController {
 			tmp.deleteOnExit()
 			println "Temp file ${tmp.absolutePath}"
 			uploadedFile.transferTo(tmp)
-			importPricesService.process(params.type,tmp,session)
+			importPricesService.process(params.type,tmp)
 			flash.message="Upload finished"	
 			render view:"index"
 		} else {
 			flash.message="Empty File"
-			render view:"index"
+			 redirect(action:"index")
 		}
 	}
 	
 	def progress() {
-		render session['import_sku']
+		render ([session['import_sku'],
+				session['import_lineno']] as JSON)
 	}
+	
 }
