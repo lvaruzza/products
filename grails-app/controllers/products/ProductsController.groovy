@@ -14,6 +14,10 @@ class ProductsController {
 		redirect(action: "list", params: params)
 	}
 	
+	def export() {
+		reneder view:"export"	
+	}
+	
 	def list(String query) {
 		if (query==null) query=""
 
