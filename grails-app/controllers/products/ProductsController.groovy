@@ -2,6 +2,7 @@ package products
 
 import grails.converters.*
 import static grails.async.Promises.*
+import grails.converters.XML
 
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
@@ -15,9 +16,22 @@ class ProductsController {
 	}
 	
 	def export() {
-		reneder view:"export"	
+		render(view:"export")
 	}
-	
+
+	def products_xml() {
+		def lst = Product.list()
+		XML.use('deep')
+		
+		def outf = new File("/tmp/export.xml")
+		outf.withWriter { out ->
+				out.println (lst as XML)
+		}
+		response.setContentType("application/force-download")
+		response.setHeader("Content-disposition", "filename=products.xml")
+		response.outputStream <<  outf.text	
+	}
+
 	def list(String query) {
 		if (query==null) query=""
 
