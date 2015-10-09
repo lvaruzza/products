@@ -71,24 +71,23 @@ class ProductsController {
 		product.lang = product.lang ?: "en_US"
 		product.url =  product.url ?: "undefined"
 		println "product id: ${product.id}"
-		println product.dump();
 		updateOrSave(product,true)
 	}
 	
 	def update(int id) {
 		def product=Product.get(id)
 		//product.translation = product.translation ?: new Translation()
-		println "--------------------------------------------------"
-		println params.translation.dump()
+		//println "--------------------------------------------------"
+		//println params.translation.dump()
 		//bindData(product,params)
 		//bindData(product.translation,params,prefix:"tranlation")
 		
 		product.properties = params
 		product.translation = product.translation ?: new Translation(params.translation)
 		
-		println "--------------------------------------------------"
-		println product.dump()
-		println "--------------------------------------------------"
+		//println "--------------------------------------------------"
+		//println product.dump()
+		//println "--------------------------------------------------"
 		updateOrSave(product,false)
 	}	
 	
@@ -112,7 +111,6 @@ class ProductsController {
 			//product.setTranslation(translation)
 
 			//product.translation.save(flush:true)
-			println product.dump();
 			if (!product.save(flush: true)) {
 				product.errors.each { println it }
 				def canEdit = canEdit()
@@ -120,9 +118,11 @@ class ProductsController {
 
 				render(view: "edit", model: [product: product,readonly:readOnly,canEdit:canEdit])
 				return
+			} else {
+				Product.reindex(product);
 			}
-			println product.dump();
 		}
+		
 		redirect (action: "list",params:[query:session["query"],
 			offset:session["offset"],
 			max:session["max"]])

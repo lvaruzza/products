@@ -21,6 +21,7 @@ class Product {
 	
 	static hasOne  =[translation:Translation]
 	static hasMany =[prices:Price]
+	//,children:Product]
 	
 	
 	static searchable = {
