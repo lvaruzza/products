@@ -32,8 +32,7 @@ searchable {
      * The default is "${user.home}/.grails/projects/${app.name}/searchable-index/${grails.env}"
      */
     compassConnection = new File(
-  //      "${userHome}/.grails/projects/${appName}/searchable-index/${grailsEnv}"
-         "searchable-index"
+        "/var/lib/orange/searchable-index/"
     ).absolutePath
 
     /**

@@ -23,7 +23,7 @@ environments {
 			pooled = true
 			//dbCreate = "update"
 			url = "jdbc:postgresql://localhost/products_dev"
-			logSql=false
+			logSql=true
 			formatSql=true
 		}
 
@@ -46,6 +46,7 @@ environments {
 			//dbCreate = "update"
 			url = "jdbc:postgresql://localhost/products"
 			logSql=false
+			formatSql=true
 		}
 		hibernate {
 			// default Grails configuration:
