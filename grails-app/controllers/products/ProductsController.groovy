@@ -20,13 +20,17 @@ class ProductsController {
 	}
 
 	def products_xml() {
-		def lst = Product.list()
-		XML.use('deep')
-		
-		def outf = new File("/tmp/export.xml")
-		outf.withWriter { out ->
-				out.println (lst as XML)
+		def p1=tasks {
+				
+			def lst = Product.list()
+			XML.use('deep')
+			
+			def outf = new File("/tmp/export.xml")
+			outf.withWriter { out ->
+					out.println (lst as XML)
+			}
 		}
+		waitAll(p1)
 		response.setContentType("application/force-download")
 		response.setHeader("Content-disposition", "filename=products.xml")
 		response.outputStream <<  outf.text	
