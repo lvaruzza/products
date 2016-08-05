@@ -6,6 +6,7 @@ class Translation {
 	String sku
 	String name
 	String description
+	String extended
 	String size
 	String contentsAndStorage
 	//String regulatoryStatement
@@ -20,6 +21,7 @@ class Translation {
     table "translations"
 	description type: 'text'
 	name type: 'text'
+	extended type: 'text'
 	size type: 'text'
 	id type: Long
 	
@@ -32,6 +34,7 @@ class Translation {
     editedBy blank: false
     version blank: false
 	description nullable: true
+	extended nullable: true
 	size nullable: true
 	contentsAndStorage nullable: true
   }

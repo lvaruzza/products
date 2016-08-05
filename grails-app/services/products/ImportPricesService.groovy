@@ -85,9 +85,9 @@ class ImportPricesService {
 			def ncm = lst[2].trim()
 			def name = lst[1].trim()
 			def size = lst[8].trim()
-			def usd = lst[9].trim()
-			def brl_no_ipi = lst[10].trim()
-			def brl = lst[12].trim()
+			def usd = lst[11].trim()
+			def brl_no_ipi = lst[12].trim()
+			def brl = lst[14].trim()
 			def legenda = lst[3].trim()
 			createPrice(sku,ncm,name,size,usd,brl_no_ipi,brl,legenda,lineno)
 		} else {

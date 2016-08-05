@@ -169,7 +169,16 @@ DEPRECATED
 	 </td> 
 	 <td class="edit">
 	   	<g:textArea  readonly="${readonly}" name="translation.description" value="${product.translation?.description}" />
-	 </td></tr>
+	 </td>
+</tr>
+
+
+<tr> <td class="field">Extended <br/> Description</td>
+	 <td class="edit" colspan="2">
+	   	<g:textArea  readonly="${readonly}" name="translation.extended" value="${product.translation?.extended}" />
+	 </td>
+</tr>
+
 
 <tr> <td class="field">Size</td> 
 	 <td class="orig">
