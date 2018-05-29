@@ -44,10 +44,10 @@ grails.project.dependency.resolution = {
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         mavenRepo "http://repository.codehaus.org"
         mavenRepo "http://download.java.net/maven/2/"
+        mavenRepo "http://download.java.net/maven/2/"
         mavenRepo "http://repository.jboss.com/maven2/"
 		mavenRepo "http://repo.typesafe.com/typesafe/repo/"
 		mavenRepo "http://repo.grails.org/grails/core"
-		mavenRepo "http://mvnrepository.com/artifact/"
 		mavenRepo "http://repo.spring.io/milestone/"
     }
 
@@ -56,8 +56,12 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
-		runtime 'postgresql:postgresql:9.1-901.jdbc4'
+		runtime 'org.postgresql:postgresql:42.2.2.jre7'
 		compile 'joda-time:joda-time:2.3'		
+        compile "org.grails:grails-plugin-gsp:2.5.6"
+        runtime group: 'javax.xml', name: 'jaxb-api', version: '2.1'
+        runtime group: 'javax.xml', name: 'jaxb-impl', version: '2.1'
+        runtime group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     }
 
     plugins {
@@ -78,15 +82,15 @@ grails.project.dependency.resolution = {
 		compile ':spring-security-core:2.0-RC4'
 		compile ":spring-security-ui:1.0-RC2"
 		//compile ":spring-security-ldap:2.0-RC2"
-		
+
 		// plugins needed at runtime but not for compilation
         //runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
 		runtime ":hibernate:3.6.10.18"
 
         runtime ":database-migration:1.4.0"
         runtime ":jquery:1.11.1"
-		compile ":jquery-ui:1.10.4"
-		
+		runtime ":jquery-ui:1.10.4"
+
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"

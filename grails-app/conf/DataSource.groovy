@@ -3,8 +3,8 @@ dataSource {
 	jmxExport = true
 	driverClassName = "org.postgresql.Driver"
 	dialect = org.hibernate.dialect.PostgreSQLDialect
-	username = "NONONO"
-	password = "NONONO"
+	username = "grails"
+	password = "grails"
 }
 
 hibernate {

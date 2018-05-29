@@ -99,19 +99,20 @@ environments {
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    }
 	appenders {
 		file name:'file', file:'/var/log/orange/orange.log'
 	}
 	root {
 		info 'file'
+        info 'stdout'
 	}
-	error 'org.springframework.security'
-	error 'grails.plugin.springsecurity'
+	info 'org.springframework.security'
+	info 'grails.plugin.springsecurity'
 	
-	debug 'org.hibernate.SQL'
+	error 'org.hibernate.SQL'
 	//trace 'org.hibernate.type'
 	
     info  'org.codehaus.groovy.grails.web.servlet',        // controllers
